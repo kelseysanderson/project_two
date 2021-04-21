@@ -1,0 +1,29 @@
+.login-form {
+    margin: 70px 20px 20px 20px;
+    padding: 3%;
+    border-radius: 3px;
+    border-width: thick;
+    background-color: #b49b99;
+    width:18%;
+}
+
+.btn{
+    background-color:#0b4b19;
+    margin-left:20px;
+}
+
+.btn:hover{
+    cursor:pointer;
+    background-color: #0d5b1e;
+}
+@media only screen and (max-width: 768px) {
+    .form-style {
+      width: 70%;
+    }
+  }
+
+@media only screen and (max-width: 600px) {
+    .form-style {
+      width: 60%;
+    }
+  }
