@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Plant extends Model { }
+class Garden extends Model { }
 
-Plant.init(
+Garden.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,17 +11,19 @@ Plant.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    plant_name: {
-      type: DataTypes.STRING,
-      allowNull: false
+    plant_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'plant',
+        key: 'id'
+      }
     },
-    image_url: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    plant_info: {
-      type: DataTypes.STRING,
-      allowNull: false
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
     },
   },
   {
@@ -29,8 +31,8 @@ Plant.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'plant',
+    modelName: 'garden',
   }
 );
 
-module.exports = Plant;
+module.exports = Garden;
