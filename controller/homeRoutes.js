@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Plant, User, Garden } = require('../models');
 
 router.get('/', async (req, res) => {
-  let featureplant = {"featured-plant":[{
+  let featuredplant = {"featuredplant":[{
     image_url: "https://via.placeholder.com/200", name: "plant"
   },
   {
@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
 
 
   ]};
-  res.render('homepage', {featureplant});
+  console.log(featuredplant);
+  res.render('homepage', {featuredplant});
 });
 
 // login
