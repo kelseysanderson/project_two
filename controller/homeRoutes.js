@@ -6,12 +6,20 @@ router.get('/', async (req, res) => {
 });
 
 // login
-
+router.get('/login', async (req, res) => {
+  res.render('login');
+});
 // my garden/favourites
-
+router.get('/mygarden', async (req, res) => {
+  res.render('mygarden');
+});
 // search results
-
+router.get('/search', async (req, res) => {
+  res.render('search');
+});
 // plant page
-
+router.get('/plant', async (req, res) => {
+  res.render('plant');
+});
 
 module.exports = router;
