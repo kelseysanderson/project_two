@@ -1,0 +1,133 @@
+body {
+    font-family: montserrat;
+    margin: 0;
+    
+}
+
+.jumbotron {
+    background-color: #DDC9C7;
+    
+}
+
+h1 {
+    color:#536555;
+    font-weight: medium-500;
+}
+
+.navbar{
+    background-color: #DDD4C7;
+    width: 102%;
+    margin-left: -1%;
+    margin-right: -10%;
+}
+.navbar2 {
+    background-color: #C7DDC9;
+    width: 102%;
+    margin-left: -1%;
+    margin-right: -10%;
+    text-align: center;
+}
+
+h4 {
+    color: #687E6A;
+    font-style: italic;
+
+}
+
+#button {
+    background-color: white;
+    color:  #687E6A;
+    font-style: italic;
+    border-radius: 50px 0 50px 0;
+}
+
+.card {
+    color: #2A322A;
+    background-color: #E9F2E9;
+    font-size: 25px;
+    margin-left: 10%;
+    margin-top:10%;
+    border-radius: 25px 0 25px 0;
+    border: 1px solid #687E6A;
+    padding: 3%;
+}
+
+.card2 {
+    color: #2A322A;
+    background-color:  #E9F2E9;
+    font-size: 25px;
+    border: 1px solid #687E6A;
+    margin-top: 10%;
+    height: 20%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#plantpage {
+    border-radius: 0 25px 0 25px;
+    border: 1px solid #687E6A;
+    margin-right: 10%;
+    margin-top: -25%;
+}
+
+.image {
+    border: 1px solid  #687E6A
+}
+
+footer {
+    text-align: right;
+    background-color: #F2EBEA;
+    margin-top: 5%;
+    padding-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+#link {
+    text-decoration-color: none;
+    color:  #687E6A;
+}
+
+.login-form {
+    margin: 70px 20px 20px 20px;
+    padding: 3%;
+    border-radius: 3px;
+    border-width: thick;
+    background-color: #b49b99;
+    width:18%;
+}
+
+.btn2 {
+    background-color: #A6C9A9;
+    color: #2A322A;
+    border: 1px solid #2A322A;
+    border-radius: 5px 5px 5px 5px;
+    margin-left: 80%;
+}
+
+.btn{
+    background-color:#0b4b19;
+    margin-left:20px;
+}
+
+.btn2:hover {
+    cursor: pointer;
+    background-color: #2A322A;
+    color: #A6C9A9;
+}
+
+.btn:hover{
+    cursor:pointer;
+    background-color: #0d5b1e;
+}
+
+@media only screen and (max-width: 768px) {
+    .form-style {
+      width: 70%;
+    }
+  }
+
+@media only screen and (max-width: 600px) {
+    .form-style {
+      width: 60%;
