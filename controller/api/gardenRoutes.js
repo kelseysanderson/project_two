@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const { Plant, Garden } = require('../../models');
-const { User } = require('../../models');
+const { Plant, Garden, User } = require('../../models');
 
 // Save favourited plant
 router.post('/', async (req, res) => {
@@ -18,4 +17,3 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
-
