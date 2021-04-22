@@ -6,27 +6,9 @@
           <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="images/bamboo.png" class="d-block w-100" alt="/images/bamboo.png">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Plant of the day!</h5>
-              <p>Bamboo</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="images/costa.png" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Costa</h5>
-              <p></p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="images/Haworthia.png" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Haworthia</h5>
-              <p></p>
-            </div>
-          </div>
+        {{#each featured-plant as |plant|}}
+        {{> homepagepartials }}
+        {{/each}}
         </div>
         <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
