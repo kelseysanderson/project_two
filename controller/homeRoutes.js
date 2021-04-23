@@ -41,9 +41,6 @@ router.get('/search/:query', async (req, res, next) => {
       data: searchJson.data.slice(0, 12) 
   };
   console.log(newFormattedResults)
-  // res.render('search', data)
-  next();
-}, (req, res) => {
   res.render('search');
 });
 
