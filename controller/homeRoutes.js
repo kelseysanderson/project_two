@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     const plantData = await Plant.findAll();
 
     const plants = plantData.map((project) => project.get({ plain: true }));
-        const plant = plants[Math.floor(Math.random() * plants.length)];
+    const plant = plants[Math.floor(Math.random() * plants.length)];
     res.render('homepage', {
       plant,
     });
@@ -40,14 +40,14 @@ router.get('/search/:query', async (req, res, next) => {
   let newFormattedResults = searchJson.data.slice(0, 12);
 
   const savedPlant = await Plant.bulkCreate(
-    newFormattedResults.map(plant => ({ 
+    newFormattedResults.map((plant) => ({
       id: plant.id,
       plant_name: plant.common_name,
       image_url: plant.image_url,
-      //--extra fetch to get more info--
-      plant_info: plant.scientific_name, 
+      // --extra fetch to get more info--
+      plant_info: plant.scientific_name,
     })),
-    {ignoreDuplicates: true}
+    { ignoreDuplicates: true }
   );
 
   res.render('search', {
