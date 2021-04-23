@@ -1,16 +1,13 @@
 <section class="row justify-content-center">
+    <h1>PLANTS!!</h1>
     {{#each featuredplant as |plant|}}
        <div class="col-12 col-sm-6 col-lg-4 mb-3">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="" alt="Card image cap">
+            <div class="plant card" style="width: 18rem;">
+                <img class="card-img-top" src="{{plant.image_url}}" alt="Card image cap">
                 <div class="card-body">
-                <h5 class="card-title">{{name}}</h5>
+                <h5 class="card-title">Name: {{plant.common_name}}</h5>
                 </div>
             </div> 
         </div>
     {{/each}}
-<<<<<<< HEAD
-</section> 
-=======
-</section>  
->>>>>>> 24d406e72cd093703778a23041df802977b8606f
+</section>
