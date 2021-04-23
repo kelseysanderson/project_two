@@ -8,8 +8,10 @@ router.get('/', async (req, res) => {
 
     const plants = plantData.map((project) => project.get({ plain: true }));
     const plant = plants[Math.floor(Math.random() * plants.length)];
+    console.log(req.session.loggedIn)
     res.render('homepage', {
       plant,
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     res.status(500).json(err);
@@ -24,12 +26,12 @@ router.get('/login', async (req, res) => {
 
 // my garden/favourites
 router.get('/mygarden', async (req, res) => {
-  res.render('mygarden');
+  res.render('mygarden', {loggedIn: req.session.loggedIn});
 });
 
 // search results
 router.get('/search', async (req, res) => {
-  res.render('search');
+  res.render('search', {loggedIn: req.session.loggedIn});
 });
 
 router.get('/search/:query', async (req, res) => {
@@ -55,13 +57,14 @@ router.get('/search/:query', async (req, res) => {
   res.render('search', {
     featuredplant: newFormattedResults,
     searchedWord: searchedWord,
+    loggedIn: req.session.loggedIn
   });
   // post request?
 });
 
 // plant page
 router.get('/plant', async (req, res) => {
-  res.render('plant');
+  res.render('plant', {loggedIn: req.session.loggedIn});
 });
 
 router.get('/plant/:id', async (req, res) => {
@@ -85,7 +88,7 @@ router.get('/plant/:id', async (req, res) => {
       };
     }
     // pass in extra data from second API request
-    res.render('plantpage', plantData);
+    res.render('plantpage', {plantData, loggedIn: req.session.loggedIn});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
