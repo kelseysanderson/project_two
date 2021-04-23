@@ -3,15 +3,19 @@ const fetch = require('node-fetch');
 const { Plant, User, Garden } = require('../models');
 
 router.get('/', async (req, res) => {
-  const dishes = 
-    {
-      dish_name: 'French Bread with Brie Cheese',
-      description: 'French baguette with warm brie',
-    }
-  
-  // console.log(featuredplant);
-  res.render('homepage', {dishes} );
+  try {
+    const plantData = await Plant.findAll();
+
+    const plants = plantData.map((project) => project.get({ plain: true }));
+        const plant = plants[Math.floor(Math.random() * plants.length)];
+    res.render('homepage', {
+      plant,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
+
 
 // login
 router.get('/login', async (req, res) => {
