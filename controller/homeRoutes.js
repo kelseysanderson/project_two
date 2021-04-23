@@ -45,7 +45,7 @@ router.get('/search/:query', async (req, res) => {
       plant_name: plant.common_name,
       image_url: plant.image_url,
       // --extra fetch to get more info--
-      plant_info: plant.scientific_name,
+      plant_info: null,
     })),
     { ignoreDuplicates: true }
   );
@@ -63,6 +63,30 @@ router.get('/plant', async (req, res) => {
 
 router.get('/plant/:id', async (req, res) => {
   // find by primary key
+  try {
+    const dbPlantData = await Plant.findByPk(req.params.id);
+    const plantData = dbPlantData.get({ plain: true });
+    if (plantData.plant_info === '') {
+      // if we don't have extra plant data saved in plant_info
+      const plantInfo = await fetch(`https://trefle.io/api/v1/plants/${req.params.id}?token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
+      const plantJson = await plantInfo.json();
+      const plantData = plantJson.data.main_species;
+      // Pick data to save
+      const savedPlantData = {
+        height: plantData.specifications.average_height.cm,
+        light: plantData.growth.light,
+        temperature: '',
+        toxicity: '',
+        water: '',
+        edible: ''
+      }
+    }
+    // pass in extra data from second API request
+    res.render('plantpage', plantData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
