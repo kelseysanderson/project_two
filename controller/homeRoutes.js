@@ -37,12 +37,14 @@ router.get('/search/:query', async (req, res, next) => {
   const searchJson = await searchResult.json();
 
   // convert searchJson to object to pass to handlebars
-  req.searchResults = searchJson;
+  let newFormattedResults = {
+      data: searchJson.data.slice(0, 12) 
+  };
+  console.log(newFormattedResults)
   // res.render('search', data)
   next();
 }, (req, res) => {
-  res.render('mygarden');
-  console.log(req.searchResults);
+  res.render('search');
 });
 
 // plant page
