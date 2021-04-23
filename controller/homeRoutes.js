@@ -35,6 +35,8 @@ router.get('/search', async (req, res) => {
 router.get('/search/:query', async (req, res) => {
   const searchResult = await fetch(`https://trefle.io/api/v1/plants/search?q=${req.params.query}&token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
   const searchJson = await searchResult.json();
+  let searchedWord = req.params.query
+  searchedWord = searchedWord.charAt(0).toUpperCase() + searchedWord.slice(1);
 
   // convert searchJson to object to pass to handlebars
   const newFormattedResults = searchJson.data.slice(0, 12);
@@ -45,17 +47,14 @@ router.get('/search/:query', async (req, res) => {
       plant_name: plant.common_name,
       image_url: plant.image_url,
       // --extra fetch to get more info--
-<<<<<<< HEAD
-      plant_info: plant.scientific_name,
-=======
       plant_info: null,
->>>>>>> ab67bb863609c78d2a7ac11fd0ca8a52d4979f2a
     })),
     { ignoreDuplicates: true }
   );
 
   res.render('search', {
-    featuredplant: newFormattedResults
+    featuredplant: newFormattedResults,
+    searchedWord: searchedWord,
   });
   // post request?
 });
