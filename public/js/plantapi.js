@@ -4,7 +4,7 @@ async function plantSearchHandler(event) {
   const searchedWord = document.querySelector('#search-text').value;
   console.log('BUTTON');
   const searchResults = await fetch(`/search/${searchedWord}`);
-  document.location.replace('/mygarden');
+  document.location.replace('/search');
 }
 
 
