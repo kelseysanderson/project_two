@@ -79,7 +79,7 @@ router.get('/plant/:id', async (req, res) => {
         toxicity: '',
         water: '',
         edible: ''
-      }
+      };
     }
     // pass in extra data from second API request
     res.render('plantpage', plantData);

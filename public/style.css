@@ -44,6 +44,14 @@ h2 {
     font-style: oblique;
 }
 
+.search-img {
+    float: left;
+    width:  100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+
+}
 
 #button {
     background-color: white;
