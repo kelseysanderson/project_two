@@ -1,6 +1,6 @@
 <div class="card" style="width: 18rem;">
         <div class="selected-plant">
-          This Plant
+          {{plant_name}}
         </div>
         <ul class="list-group list-group-flush">
       
@@ -10,11 +10,12 @@
           <li class="plant-info4">Re-Potting</li>
           <li class="plant-info5">Propagating</li>
           <li class="plant-info6">Pet Friendly?</li>
+          <li class="plant-info6">Scientific name: {{plant_info}}</li>
       
         </ul>
       </div>
 
-      <img id="plantpage" src="..." class="rounded float-right" alt="...">
+      <img id="plantpage" src="{{image_url}}" class="rounded float-right" alt"{{plant_name}} image">
       <button type="button" class="btn2 btn-outline-secondary">Add to My Garden</button>
       
       <footer> 
