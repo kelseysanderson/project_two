@@ -32,12 +32,12 @@ router.get('/search', async (req, res) => {
   res.render('search');
 });
 
-router.get('/search/:query', async (req, res, next) => {
+router.get('/search/:query', async (req, res) => {
   const searchResult = await fetch(`https://trefle.io/api/v1/plants/search?q=${req.params.query}&token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
   const searchJson = await searchResult.json();
 
   // convert searchJson to object to pass to handlebars
-  let newFormattedResults = searchJson.data.slice(0, 12);
+  const newFormattedResults = searchJson.data.slice(0, 12);
   res.render('search', {
     featuredplant: newFormattedResults
   });
