@@ -43,7 +43,6 @@ router.get('/search/:query', async (req, res, next) => {
   next();
 }, (req, res) => {
   res.render('mygarden');
-  console.log(req.searchResults);
 });
 
 // plant page
