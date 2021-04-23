@@ -14,11 +14,13 @@ router.get('/', async (req, res) => {
     ]
   };
   console.log(featuredplant);
+  console.log('I am at the homepage?');
   res.render('homepage', { featuredplant });
 });
 
 // login
 router.get('/login', async (req, res) => {
+  console.log('i am logged in');
   res.render('login');
 });
 
@@ -32,10 +34,16 @@ router.get('/search', async (req, res) => {
   res.render('search');
 });
 
-router.get('/search/:query', async (req, res) => {
+router.get('/search/:query', async (req, res, next) => {
   const searchResult = await fetch(`https://trefle.io/api/v1/plants/search?q=${req.params.query}&token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
   const searchJson = await searchResult.json();
-  res.json(searchJson);
+  // convert searchJson to object to pass to handlebars
+  req.searchResults = searchJson;
+  // res.render('search', data)
+  next();
+}, (req, res) => {
+  res.render('mygarden');
+  console.log(req.searchResults);
 });
 
 // plant page
