@@ -71,24 +71,39 @@ router.get('/plant/:id', async (req, res) => {
   // find by primary key
   try {
     const dbPlantData = await Plant.findByPk(req.params.id);
-    const plantData = dbPlantData.get({ plain: true });
-    if (plantData.plant_info === '') {
+    const plantDatadb = dbPlantData.get({ plain: true });
+    if (plantDatadb.plant_info === '') {
       // if we don't have extra plant data saved in plant_info
       const plantInfo = await fetch(`https://trefle.io/api/v1/plants/${req.params.id}?token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
       const plantJson = await plantInfo.json();
       const plantData = plantJson.data.main_species;
       // Pick data to save
+      let lightLevel = " "
+      if (plantData.growth.light < 4) {
+        lightLevel = "low light" 
+      }
+      else if ((plantData.growth.light < 8))  {
+        lightLevel = "meduim light"
+      }
+      else {
+        lightLevel = "high light"
+      }
       const savedPlantData = {
         height: plantData.specifications.average_height.cm,
-        light: plantData.growth.light,
-        temperature: '',
-        toxicity: '',
-        water: '',
-        edible: ''
+        light: lightLevel, 
+        temperature: plantData.growth.maximum_tempertaure,
+        toxicity: plantData.specifications.toxicity,
+        duration: plantData.duration.join(" "),
+        edible: plantData.edible,
+        edibleParts: plantData.edible_part.join(" "),
+        vegetable: plantData.vegetable,
       };
+      const newPlantJson = JSON.stringify(savedPlantData)
+      Plant.update({plant_info: newPlantJson}, {where:{id: plantDatadb.id}},)
+
     }
     // pass in extra data from second API request
-    res.render('plantpage', {plantData, loggedIn: req.session.loggedIn});
+    res.render('plantpage', {plantDatadb, loggedIn: req.session.loggedIn});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
