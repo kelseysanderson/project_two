@@ -30,7 +30,7 @@ h1 {
 h4 {
     color: #687E6A;
     font-style: italic;
-    margin-left: 10%;
+    margin-left: 15%;
 }
 h4:hover {
     font-style: normal;
@@ -68,12 +68,19 @@ h2 {
     padding:3px;
 }
 
-.home-page-card {
+p {
+    text-decoration: none;
+    font-size: 34px;
+    text-align: center;
+    color: #536555;
+   
+}
+/* .home-page-card {
     color: #2A322A;
     background-color: #E9F2E9;
     font-size: 40px;
     margin-top:1%;
-    border-radius: 25px 0 25px 0;
+    
     border: 1px solid #687E6A;
     padding: 5%;
     width: 500px;
@@ -93,7 +100,7 @@ h2 {
     font-size: 45%;
     padding-top: 5px;
     margin-top: 3px;
-}
+} */
 
 #search-page-title{
     margin-top: 3%;
@@ -188,7 +195,12 @@ footer {
     text-decoration-color: none;
     color:  #687E6A;
 }
+.col {
+    margin-left: 43%;
+    border: 3px solid #DDD4C7;
+    padding: 0%
 
+}
 .col-6 {
   
     border: 1px solid #2A322A;
