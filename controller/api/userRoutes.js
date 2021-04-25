@@ -16,9 +16,7 @@ router.post('/', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    console.log("Error:", err.message)
-
-    if ( err.message === "Validation error" ){
+    if (err.message === 'Validation error') {
       res.status(400).json(err);
     } else {
       res.status(500).json(err);
@@ -54,6 +52,7 @@ router.post('/login', async (req, res) => {
 
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.userid = userData.id;
 
       res
         .status(200)
