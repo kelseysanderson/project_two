@@ -26,18 +26,18 @@ router.get('/login', async (req, res) => {
 
 // my garden/favourites
 router.get('/mygarden', async (req, res) => {
-  res.render('mygarden', {loggedIn: req.session.loggedIn});
+  res.render('mygarden', { loggedIn: req.session.loggedIn });
 });
 
 // search results
 router.get('/search', async (req, res) => {
-  res.render('search', {loggedIn: req.session.loggedIn});
+  res.render('search', { loggedIn: req.session.loggedIn });
 });
 
 router.get('/search/:query', async (req, res) => {
   const searchResult = await fetch(`https://trefle.io/api/v1/plants/search?q=${req.params.query}&token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
   const searchJson = await searchResult.json();
-  let searchedWord = req.params.query
+  let searchedWord = req.params.query;
   searchedWord = searchedWord.charAt(0).toUpperCase() + searchedWord.slice(1);
 
   // convert searchJson to object to pass to handlebars
@@ -64,7 +64,7 @@ router.get('/search/:query', async (req, res) => {
 
 // plant page
 router.get('/plant', async (req, res) => {
-  res.render('plant', {loggedIn: req.session.loggedIn});
+  res.render('plant', { loggedIn: req.session.loggedIn });
 });
 
 router.get('/plant/:id', async (req, res) => {
@@ -88,7 +88,7 @@ router.get('/plant/:id', async (req, res) => {
       };
     }
     // pass in extra data from second API request
-    res.render('plantpage', {plantData, loggedIn: req.session.loggedIn});
+    res.render('plantpage', { plantData, loggedIn: req.session.loggedIn });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
