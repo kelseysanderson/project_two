@@ -56,7 +56,7 @@ router.get('/search/:query', async (req, res) => {
 
   res.render('search', {
     featuredplant: newFormattedResults,
-    searchedWord: searchedWord,
+    searchedWord,
     loggedIn: req.session.loggedIn
   });
   // post request?
