@@ -19,6 +19,10 @@ User.init(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        arg: true,
+        msg: "This username is taken."
+      }
     },
     password: {
       type: DataTypes.STRING,

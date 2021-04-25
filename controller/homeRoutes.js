@@ -25,9 +25,9 @@ router.get('/login', async (req, res) => {
 });
 
 // my garden/favourites
-router.get('/mygarden', async (req, res) => {
-  res.render('mygarden', { loggedIn: req.session.loggedIn });
-});
+// router.get('/mygarden', async (req, res) => {
+//   res.render('mygarden', { loggedIn: req.session.loggedIn });
+// });
 
 // search results
 router.get('/search', async (req, res) => {
@@ -80,23 +80,23 @@ router.get('/plant/:id', async (req, res) => {
       // Pick data to save
       let lightLevel = ' ';
       if (plantData.growth.light < 4) {
-        lightLevel = 'low light';
+        lightLevel = 'Low';
       } else if ((plantData.growth.light < 8)) {
-        lightLevel = 'meduim light';
+        lightLevel = 'Medium';
       } else if (plantData.growth.light >= 8) {
-        lightLevel = 'high light';
+        lightLevel = 'High';
       } else {
         lightLevel = 'unknown';
       }
       const savedPlantData = {
-        height: plantData.specifications.average_height.cm,
+        height: (plantData.specifications.average_height.cm === null || '' ? 'unknown' : plantData.specifications.average_height.cm + "cm"),
         light: lightLevel,
-        temperature: plantData.growth.maximum_tempertaure,
-        toxicity: plantData.specifications.toxicity,
+        temperature: (plantData.growth.maximum_tempertaure === null || '' ? 'unknown' : plantData.growth.maximum_tempertaure),
+        toxicity: (plantData.specifications.toxicity === null || '' ? 'unknown' : plantData.specifications.toxicity),
         duration: (plantData.duration ? plantData.duration.join(' ') : 'unknown'),
-        edible: plantData.edible,
-        edibleParts: (plantData.edible_part ? plantData.edibleParts.join(' ') : 'unknown, try it anyway'),
-        vegetable: plantData.vegetable,
+        edible: (plantData.edible === null || '' ? 'unknown' : plantData.edible),
+        edibleParts: (plantData.edible_part ? plantData.edible_part.join(' ') : 'unknown, try it anyway'),
+        vegetable: (plantData.vegetable === null || '' ? 'unknown' : plantData.vegetable),
       };
       console.log(savedPlantData);
       const newPlantJson = JSON.stringify(savedPlantData);
@@ -125,6 +125,29 @@ router.get('/plant/:id', async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
+});
+
+// Gardens
+router.get('/mygarden', async (req, res) => {
+  // Garden for current user
+  const userGardendb = await User.findOne({
+    where: {
+      id: req.session.userid
+    },
+    include: [{ model: Plant, through: Garden }]
+  });
+
+  const userGarden = userGardendb.get({ plain: true });
+
+  console.log(userGarden.plants);
+
+  res.render('mygarden', { loggedIn: req.session.loggedIn, userGarden });
+});
+
+
+// Specific user's garden
+router.get('/garden/:userid', async (req, res) => {
+  res.render('search', { loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;

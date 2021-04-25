@@ -7,7 +7,7 @@ const favoriteButtonHandler = async (event) => {
   if (favoriteButton.hasClass('btn2-remove')) {
     // is in garden
     favoriteButton.removeClass('btn2-remove');
-    console.log(plant);
+    favoriteButton.text('Add to My Garden');
     const removedGarden = await fetch('/api/gardens', {
       method: 'DELETE',
       body: JSON.stringify({ plant }),
@@ -16,8 +16,8 @@ const favoriteButtonHandler = async (event) => {
     console.log(removedGarden);
   } else {
     // not in garden
-    console.log('not in garden?');
     favoriteButton.addClass('btn2-remove');
+    favoriteButton.text('Remove from My Garden');
 
     // when click, save plant and user to db
     const response = await fetch('/api/gardens', {
