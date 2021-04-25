@@ -225,6 +225,10 @@ footer {
     margin-left: 80%;
 }
 
+.btn2-remove {
+  background-color: #CE8F8F;
+}
+
 .btn{
     background-color: #A6C9A9;
     color: #2A322A;

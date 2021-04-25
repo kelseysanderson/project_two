@@ -64,7 +64,7 @@ router.get('/search/:query', async (req, res) => {
 
 // plant page
 router.get('/plant', async (req, res) => {
-  res.render('plantpage', {loggedIn: req.session.loggedIn});
+  res.render('plantpage', { loggedIn: req.session.loggedIn });
 });
 
 router.get('/plant/:id', async (req, res) => {
@@ -81,33 +81,39 @@ router.get('/plant/:id', async (req, res) => {
       let lightLevel = ' ';
       if (plantData.growth.light < 4) {
         lightLevel = 'low light';
-      }
-      else if ((plantData.growth.light < 8)) {
+      } else if ((plantData.growth.light < 8)) {
         lightLevel = 'meduim light';
-      }
-      else {
+      } else if (plantData.growth.light >= 8) {
         lightLevel = 'high light';
+      } else {
+        lightLevel = 'unknown';
       }
       const savedPlantData = {
         height: plantData.specifications.average_height.cm,
         light: lightLevel,
         temperature: plantData.growth.maximum_tempertaure,
         toxicity: plantData.specifications.toxicity,
-        duration: plantData.duration.join(' '),
+        duration: (plantData.duration ? plantData.duration.join(' ') : 'unknown'),
         edible: plantData.edible,
-        edibleParts: plantData.edible_part.join(' '),
+        edibleParts: (plantData.edible_part ? plantData.edibleParts.join(' ') : 'unknown, try it anyway'),
         vegetable: plantData.vegetable,
       };
-      console.log(savedPlantData)
-      const newPlantJson = JSON.stringify(savedPlantData)
-      Plant.update({plant_info: newPlantJson}, {where:{id: plantDatadb.id}},)
-      plantDatadb.plant_info = savedPlantData
+      console.log(savedPlantData);
+      const newPlantJson = JSON.stringify(savedPlantData);
+      Plant.update({ plant_info: newPlantJson }, { where: { id: plantDatadb.id } },);
+      plantDatadb.plant_info = savedPlantData;
     } else {
       plantDatadb.plant_info = JSON.parse(plantDatadb.plant_info);
     }
-    // pass in extra data from second API request
-    console.log(plantDatadb)
-    res.render('plantpage', {plantDatadb,  loggedIn: req.session.loggedIn});
+    const inGardendb = await Garden.findOne({
+      where: {
+        plant_id: req.params.id,
+        user_id: req.session.userid
+      }
+    });
+    const inGarden = inGardendb.get({ plain: true });
+    console.log(inGarden);
+    res.render('plantpage', { plantDatadb, loggedIn: req.session.loggedIn,  });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

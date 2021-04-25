@@ -4,9 +4,10 @@ const { Plant, Garden, User } = require('../../models');
 // Save favourited plant
 router.post('/', async (req, res) => {
   try {
+    console.log('adding garden:\n\n******', req.body.plant, req.session.userid);
     const newGarden = await Garden.create({
-      plant_id: req.body.plant_id,
-      user_id: req.body.user_id
+      plant_id: req.body.plant,
+      user_id: req.session.userid
     });
 
     res.status(200).json(newGarden);
