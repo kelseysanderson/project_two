@@ -180,7 +180,7 @@ ul {
     width: 100%;
     height: 600px;;
     object-fit: cover;
-    margin-top: 20%;
+    margin-top: 12%;
     box-shadow: 10px 10px 20px #536555;
 }
 
@@ -237,20 +237,20 @@ footer {
     justify-self:center;
     /* margin-top: 5%; */
     margin-left: 83%;
-    padding:13px;
+    padding:20px;
     text-align: center;
     font-weight:bold;
 }
 
 .btn2-remove {
   background-color: #CE8F8F;
-  color: #2A322A;
   border: 1px solid #2A322A;
   border-radius: 5px 5px 5px 5px;
   justify-self:center;
-  margin-top: 5%;
   margin-left: 83%;
   padding:10px;
+  color:black;
+
 }
 
 .btn{
@@ -266,6 +266,13 @@ footer {
     background-color: #2A322A;
     color: #A6C9A9;
     box-shadow: 1px 1px 4px #536555;
+}
+
+.btn2-remove:hover {
+    cursor: pointer;
+    background-color: #5e3333;
+    box-shadow: 1px 1px 4px #536555;
+    color: #fde0e0;
 }
 
 .btn:hover{
