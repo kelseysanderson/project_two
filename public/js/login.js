@@ -21,7 +21,6 @@ const loginFormHandler = async (event) => {
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
-  console.log("button!");
 
   const username = document.querySelector('#username-signup').value.trim();
   const password = document.querySelector('#password-signup').value.trim();
@@ -35,12 +34,10 @@ const signupFormHandler = async (event) => {
 
     if (response.ok) {
       document.location.replace('/');
+    } else if (response.status === 400) {
+      alert('Username is taken');
     } else {
-      if ( response.status === 400 ) {
-        alert("Username is taken")
-      } else {
-        alert(response.statusText);
-      }
+      alert(response.statusText);
     }
   }
 };
