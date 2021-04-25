@@ -8,13 +8,13 @@ router.get('/', async (req, res) => {
 
     const plants = plantData.map((project) => project.get({ plain: true }));
     const plant = plants[Math.floor(Math.random() * plants.length)];
-    console.log(loggedIn)
     res.render('homepage', {
       plant,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {
     res.status(500).json(err);
+    console.log(err)
   }
 });
 
@@ -64,31 +64,50 @@ router.get('/search/:query', async (req, res) => {
 
 // plant page
 router.get('/plant', async (req, res) => {
-  res.render('plant', {loggedIn: req.session.loggedIn});
+  res.render('plantpage', {loggedIn: req.session.loggedIn});
 });
 
 router.get('/plant/:id', async (req, res) => {
   // find by primary key
   try {
     const dbPlantData = await Plant.findByPk(req.params.id);
-    const plantData = dbPlantData.get({ plain: true });
-    if (plantData.plant_info === '') {
+    const plantDatadb = dbPlantData.get({ plain: true });
+    if (plantDatadb.plant_info === '') {
       // if we don't have extra plant data saved in plant_info
       const plantInfo = await fetch(`https://trefle.io/api/v1/plants/${req.params.id}?token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
       const plantJson = await plantInfo.json();
       const plantData = plantJson.data.main_species;
       // Pick data to save
+      let lightLevel = " "
+      if (plantData.growth.light < 4) {
+        lightLevel = "low light" 
+      }
+      else if ((plantData.growth.light < 8))  {
+        lightLevel = "meduim light"
+      }
+      else {
+        lightLevel = "high light"
+      }
       const savedPlantData = {
         height: plantData.specifications.average_height.cm,
-        light: plantData.growth.light,
-        temperature: '',
-        toxicity: '',
-        water: '',
-        edible: ''
+        light: lightLevel, 
+        temperature: plantData.growth.maximum_tempertaure,
+        toxicity: plantData.specifications.toxicity,
+        duration: plantData.duration.join(" "),
+        edible: plantData.edible,
+        edibleParts: plantData.edible_part.join(" "),
+        vegetable: plantData.vegetable,
       };
+      console.log(savedPlantData)
+      const newPlantJson = JSON.stringify(savedPlantData)
+      Plant.update({plant_info: newPlantJson}, {where:{id: plantDatadb.id}},)
+      plantDatadb.plant_info = savedPlantData
+    } else {
+      plantDatadb.plant_info = JSON.parse(plantDatadb.plant_info);
     }
     // pass in extra data from second API request
-    res.render('plantpage', {plantData, loggedIn: req.session.loggedIn});
+    console.log(plantDatadb)
+    res.render('plantpage', {plantDatadb,  loggedIn: req.session.loggedIn});
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
