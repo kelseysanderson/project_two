@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../../models');
-
+const sequelize = require('../../config/connection');
 // Create new user
 router.post('/', async (req, res) => {
   try {
@@ -16,8 +16,13 @@ router.post('/', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    console.log("Error:", err.message)
+
+    if ( err.message === "Validation error" ){
+      res.status(400).json(err);
+    } else {
+      res.status(500).json(err);
+    }
   }
 });
 

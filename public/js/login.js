@@ -36,7 +36,11 @@ const signupFormHandler = async (event) => {
     if (response.ok) {
       document.location.replace('/');
     } else {
-      alert(response.statusText);
+      if ( response.status === 400 ) {
+        alert("Username is taken")
+      } else {
+        alert(response.statusText);
+      }
     }
   }
 };

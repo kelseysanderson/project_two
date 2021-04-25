@@ -80,23 +80,23 @@ router.get('/plant/:id', async (req, res) => {
       // Pick data to save
       let lightLevel = ' ';
       if (plantData.growth.light < 4) {
-        lightLevel = 'low light';
+        lightLevel = 'Low';
       } else if ((plantData.growth.light < 8)) {
-        lightLevel = 'meduim light';
+        lightLevel = 'Medium';
       } else if (plantData.growth.light >= 8) {
-        lightLevel = 'high light';
+        lightLevel = 'High';
       } else {
         lightLevel = 'unknown';
       }
       const savedPlantData = {
-        height: plantData.specifications.average_height.cm,
+        height: (plantData.specifications.average_height.cm === null || '' ? 'unknown' : plantData.specifications.average_height.cm + "cm"),
         light: lightLevel,
-        temperature: plantData.growth.maximum_tempertaure,
-        toxicity: plantData.specifications.toxicity,
+        temperature: (plantData.growth.maximum_tempertaure === null || '' ? 'unknown' : plantData.growth.maximum_tempertaure),
+        toxicity: (plantData.specifications.toxicity === null || '' ? 'unknown' : plantData.specifications.toxicity),
         duration: (plantData.duration ? plantData.duration.join(' ') : 'unknown'),
-        edible: plantData.edible,
+        edible: (plantData.edible === null || '' ? 'unknown' : plantData.edible),
         edibleParts: (plantData.edible_part ? plantData.edibleParts.join(' ') : 'unknown, try it anyway'),
-        vegetable: plantData.vegetable,
+        vegetable: (plantData.vegetable === null || '' ? 'unknown' : plantData.vegetable),
       };
       console.log(savedPlantData);
       const newPlantJson = JSON.stringify(savedPlantData);
@@ -108,7 +108,8 @@ router.get('/plant/:id', async (req, res) => {
     const inGardendb = await Garden.findOne({
       where: {
         plant_id: req.params.id,
-        user_id: req.session.userid
+        // THIS IS ERRING
+        // user_id: req.session.userid
       }
     });
     let isInGarden = false;
