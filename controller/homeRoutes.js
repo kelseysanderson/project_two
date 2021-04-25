@@ -108,8 +108,7 @@ router.get('/plant/:id', async (req, res) => {
     const inGardendb = await Garden.findOne({
       where: {
         plant_id: req.params.id,
-        // THIS IS ERRING
-        // user_id: req.session.userid
+        user_id: req.session.userid
       }
     });
     let isInGarden = false;
