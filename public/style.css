@@ -16,7 +16,7 @@ h1 {
 h4 {
     color: #687E6A;
     font-style: italic;
-    margin-left: 25%;
+    margin-left: 30%;
 }
 h4:hover {
     font-style: normal;
@@ -55,6 +55,7 @@ h2 {
     color: white;
     box-shadow: 1px 1px 4px #536555;
 }
+
 
 .form-control:hover {
     box-shadow: 1px 1px 2px #687E6A;
@@ -249,6 +250,10 @@ footer {
     background-color: #2A322A;
     color: #A6C9A9;
     box-shadow: 1px 1px 4px #536555;
+}
+
+.btn:active {
+    background-color: #b49b99;
 }
 
 
