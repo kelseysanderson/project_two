@@ -105,13 +105,16 @@ router.get('/plant/:id', async (req, res) => {
     } else {
       plantDatadb.plant_info = JSON.parse(plantDatadb.plant_info);
     }
-    const inGardendb = await Garden.findOne({
-      where: {
-        plant_id: req.params.id,
-        user_id: req.session.userid
-      }
-    });
     let isInGarden = false;
+    let inGardendb = false;
+    if (req.session.loggedIn) {
+      inGardendb = await Garden.findOne({
+        where: {
+          plant_id: req.params.id,
+          user_id: req.session.userid
+        }
+      });
+    }
     if (inGardendb) {
       // plant is in user's garden
       const inGarden = inGardendb.get({ plain: true });
@@ -130,24 +133,45 @@ router.get('/plant/:id', async (req, res) => {
 // Gardens
 router.get('/mygarden', async (req, res) => {
   // Garden for current user
-  const userGardendb = await User.findOne({
-    where: {
-      id: req.session.userid
-    },
-    include: [{ model: Plant, through: Garden }]
-  });
+  try {
+    const userGardendb = await User.findOne({
+      where: {
+        id: req.session.userid
+      },
+      include: [{ model: Plant, through: Garden }]
+    });
+    if (!userGardendb) {
+      console.log('user garden not found?');
+    }
+    const userGarden = userGardendb.get({ plain: true });
 
-  const userGarden = userGardendb.get({ plain: true });
-
-  console.log(userGarden.plants);
-
-  res.render('mygarden', { loggedIn: req.session.loggedIn, userGarden });
+    res.render('mygarden', { loggedIn: req.session.loggedIn, userGarden });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 
 // Specific user's garden
-router.get('/garden/:userid', async (req, res) => {
-  res.render('search', { loggedIn: req.session.loggedIn });
+router.get('/mygarden/:username', async (req, res) => {
+  try {
+    const userGardendb = await User.findOne({
+      where: {
+        username: req.params.username
+      },
+      include: [{ model: Plant, through: Garden }]
+    });
+    if (!userGardendb) {
+      console.log(`\n\nUSER ${req.params.username} NOT FOUND\n\n`);
+      throw new Error('no user with given username');
+    }
+    const userGarden = userGardendb.get({ plain: true });
+
+    res.render('mygarden', { loggedIn: req.session.loggedIn, userGarden });
+  } catch (err) {
+    console.log(err);
+    res.render('mygarden', { loggedIn: req.session.loggedIn, userGarden: { plants: [], username: 'nobody' } });
+  }
 });
 
 module.exports = router;
