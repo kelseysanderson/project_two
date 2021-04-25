@@ -8,10 +8,6 @@ router.get('/', async (req, res) => {
 
     const plants = plantData.map((project) => project.get({ plain: true }));
     const plant = plants[Math.floor(Math.random() * plants.length)];
-<<<<<<< HEAD
-    console.log(req.session.loggedIn);
-=======
->>>>>>> 64b90803ff1f30a275e15ed51e4182fdc6de7a14
     res.render('homepage', {
       plant,
       loggedIn: req.session.loggedIn
