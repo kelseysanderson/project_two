@@ -26,18 +26,18 @@ router.get('/login', async (req, res) => {
 
 // my garden/favourites
 router.get('/mygarden', async (req, res) => {
-  res.render('mygarden', {loggedIn: req.session.loggedIn});
+  res.render('mygarden', { loggedIn: req.session.loggedIn });
 });
 
 // search results
 router.get('/search', async (req, res) => {
-  res.render('search', {loggedIn: req.session.loggedIn});
+  res.render('search', { loggedIn: req.session.loggedIn });
 });
 
 router.get('/search/:query', async (req, res) => {
   const searchResult = await fetch(`https://trefle.io/api/v1/plants/search?q=${req.params.query}&token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
   const searchJson = await searchResult.json();
-  let searchedWord = req.params.query
+  let searchedWord = req.params.query;
   searchedWord = searchedWord.charAt(0).toUpperCase() + searchedWord.slice(1);
 
   // convert searchJson to object to pass to handlebars
@@ -56,7 +56,7 @@ router.get('/search/:query', async (req, res) => {
 
   res.render('search', {
     featuredplant: newFormattedResults,
-    searchedWord: searchedWord,
+    searchedWord,
     loggedIn: req.session.loggedIn
   });
   // post request?
@@ -64,7 +64,7 @@ router.get('/search/:query', async (req, res) => {
 
 // plant page
 router.get('/plant', async (req, res) => {
-  res.render('plantpage', {loggedIn: req.session.loggedIn});
+  res.render('plantpage', { loggedIn: req.session.loggedIn });
 });
 
 router.get('/plant/:id', async (req, res) => {
@@ -78,36 +78,49 @@ router.get('/plant/:id', async (req, res) => {
       const plantJson = await plantInfo.json();
       const plantData = plantJson.data.main_species;
       // Pick data to save
-      let lightLevel = " "
+      let lightLevel = ' ';
       if (plantData.growth.light < 4) {
-        lightLevel = "low light" 
-      }
-      else if ((plantData.growth.light < 8))  {
-        lightLevel = "meduim light"
-      }
-      else {
-        lightLevel = "high light"
+        lightLevel = 'low light';
+      } else if ((plantData.growth.light < 8)) {
+        lightLevel = 'meduim light';
+      } else if (plantData.growth.light >= 8) {
+        lightLevel = 'high light';
+      } else {
+        lightLevel = 'unknown';
       }
       const savedPlantData = {
         height: plantData.specifications.average_height.cm,
-        light: lightLevel, 
+        light: lightLevel,
         temperature: plantData.growth.maximum_tempertaure,
         toxicity: plantData.specifications.toxicity,
-        duration: plantData.duration.join(" "),
+        duration: (plantData.duration ? plantData.duration.join(' ') : 'unknown'),
         edible: plantData.edible,
-        edibleParts: plantData.edible_part.join(" "),
+        edibleParts: (plantData.edible_part ? plantData.edibleParts.join(' ') : 'unknown, try it anyway'),
         vegetable: plantData.vegetable,
       };
-      console.log(savedPlantData)
-      const newPlantJson = JSON.stringify(savedPlantData)
-      Plant.update({plant_info: newPlantJson}, {where:{id: plantDatadb.id}},)
-      plantDatadb.plant_info = savedPlantData
+      console.log(savedPlantData);
+      const newPlantJson = JSON.stringify(savedPlantData);
+      Plant.update({ plant_info: newPlantJson }, { where: { id: plantDatadb.id } },);
+      plantDatadb.plant_info = savedPlantData;
     } else {
       plantDatadb.plant_info = JSON.parse(plantDatadb.plant_info);
     }
-    // pass in extra data from second API request
-    console.log(plantDatadb)
-    res.render('plantpage', {plantDatadb,  loggedIn: req.session.loggedIn});
+    const inGardendb = await Garden.findOne({
+      where: {
+        plant_id: req.params.id,
+        user_id: req.session.userid
+      }
+    });
+    let isInGarden = false;
+    if (inGardendb) {
+      // plant is in user's garden
+      const inGarden = inGardendb.get({ plain: true });
+      isInGarden = true;
+    } else {
+      // plant not in user garden
+      console.log('plant not in user garden');
+    }
+    res.render('plantpage', { plantDatadb, loggedIn: req.session.loggedIn, isInGarden });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
