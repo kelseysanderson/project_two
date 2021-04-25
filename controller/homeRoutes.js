@@ -111,9 +111,16 @@ router.get('/plant/:id', async (req, res) => {
         user_id: req.session.userid
       }
     });
-    const inGarden = inGardendb.get({ plain: true });
-    console.log(inGarden);
-    res.render('plantpage', { plantDatadb, loggedIn: req.session.loggedIn,  });
+    let isInGarden = false;
+    if (inGardendb) {
+      // plant is in user's garden
+      const inGarden = inGardendb.get({ plain: true });
+      isInGarden = true;
+    } else {
+      // plant not in user garden
+      console.log('plant not in user garden');
+    }
+    res.render('plantpage', { plantDatadb, loggedIn: req.session.loggedIn, isInGarden });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
