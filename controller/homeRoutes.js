@@ -25,9 +25,9 @@ router.get('/login', async (req, res) => {
 });
 
 // my garden/favourites
-router.get('/mygarden', async (req, res) => {
-  res.render('mygarden', { loggedIn: req.session.loggedIn });
-});
+// router.get('/mygarden', async (req, res) => {
+//   res.render('mygarden', { loggedIn: req.session.loggedIn });
+// });
 
 // search results
 router.get('/search', async (req, res) => {
@@ -95,7 +95,7 @@ router.get('/plant/:id', async (req, res) => {
         toxicity: (plantData.specifications.toxicity === null || '' ? 'unknown' : plantData.specifications.toxicity),
         duration: (plantData.duration ? plantData.duration.join(' ') : 'unknown'),
         edible: (plantData.edible === null || '' ? 'unknown' : plantData.edible),
-        edibleParts: (plantData.edible_part ? plantData.edibleParts.join(' ') : 'unknown, try it anyway'),
+        edibleParts: (plantData.edible_part ? plantData.edible_part.join(' ') : 'unknown, try it anyway'),
         vegetable: (plantData.vegetable === null || '' ? 'unknown' : plantData.vegetable),
       };
       console.log(savedPlantData);
@@ -108,8 +108,7 @@ router.get('/plant/:id', async (req, res) => {
     const inGardendb = await Garden.findOne({
       where: {
         plant_id: req.params.id,
-        // THIS IS ERRING
-        // user_id: req.session.userid
+        user_id: req.session.userid
       }
     });
     let isInGarden = false;
@@ -126,6 +125,29 @@ router.get('/plant/:id', async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
+});
+
+// Gardens
+router.get('/mygarden', async (req, res) => {
+  // Garden for current user
+  const userGardendb = await User.findOne({
+    where: {
+      id: req.session.userid
+    },
+    include: [{ model: Plant, through: Garden }]
+  });
+
+  const userGarden = userGardendb.get({ plain: true });
+
+  console.log(userGarden.plants);
+
+  res.render('mygarden', { loggedIn: req.session.loggedIn, userGarden });
+});
+
+
+// Specific user's garden
+router.get('/garden/:userid', async (req, res) => {
+  res.render('search', { loggedIn: req.session.loggedIn });
 });
 
 module.exports = router;

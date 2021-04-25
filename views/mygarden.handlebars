@@ -1,35 +1,15 @@
- <div class="navbar2">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <nav class="navbar2">
-        <a class="navbar-brand"><h4>My Garden</h4></a>
-        </nav>
-        </nav>
-        </div>
-        <div class="container">
-          <div class="row row-cols-2">
-            <div class="card2" >
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Favorite 1</p>
-              </div>
+<h1 id="search-page-title">{{userGarden.username}}'s Garden</h1>
+<section class="row justify-content-center">
+  {{#each userGarden.plants as |plant|}}
+    <div class="col-12 col-sm-6 col-lg-3 mb-3">
+        <a href="/plant/{{plant.id}}">
+            <div class="plant search-page-card card" style="width: 18rem;">
+                <img class="card-img-top search-img" src="{{plant.image_url}}" alt="Card image cap">
+                <div class="card-body">
+                <h5 id="search-card-title" class="card-title">{{plant.plant_name}}</h5>
+                </div>
             </div>
-            <div class="card2">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Favorite 2</p>
-              </div>
-            </div>
-            <div class="card2">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Favorite 3</p>
-              </div>
-            </div>
-            <div class="card2">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Favorite 4</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        </a>
+    </div>
+  {{/each}}
+</section>
