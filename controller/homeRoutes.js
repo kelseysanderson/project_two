@@ -35,7 +35,7 @@ router.get('/search', async (req, res) => {
 });
 
 router.get('/search/:query', async (req, res) => {
-  const searchResult = await fetch(`https://trefle.io/api/v1/plants/search?q=${req.params.query}&token=oAC1gBhoTITc0LexBLXeOfr4ix2qc-DiGQXk1c3b2Rs`);
+  const searchResult = await fetch(`https://trefle.io/api/v1/plants/search?q=${req.params.query}&token=${process.env.API_TOKEN}`);
   const searchJson = await searchResult.json();
   let searchedWord = req.params.query;
   searchedWord = searchedWord.charAt(0).toUpperCase() + searchedWord.slice(1);
