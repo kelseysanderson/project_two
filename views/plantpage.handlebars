@@ -1,25 +1,64 @@
-<div class="card" style="width: 18rem;">
+{{!-- <div class="card" style="width: 18rem;">
         <div class="selected-plant">
-          {{plant_name}}
+          {{plantDatadb.plant_name}}
         </div>
         <ul class="list-group list-group-flush">
-      
-          <li class="plant-info1">About</li>
-          <li class="plant-info2">Sun</li>
-          <li class="plant-info3">Soil</li>
-          <li class="plant-info4">Re-Potting</li>
-          <li class="plant-info5">Propagating</li>
-          <li class="plant-info6">Pet Friendly?</li>
-          <li class="plant-info6">Scientific name: {{plant_info}}</li>
-      
+          <li class="plant-info1"><b>Height:</b> {{plantDatadb.plant_info.height}}</li>
+          <li class="plant-info2"><b>Light Level:</b> {{plantDatadb.plant_info.light}} </li>
+          <li class="plant-info3"><b>Temperature:</b> {{plantDatadb.plant_info.temperature}}</li>
+          <li class="plant-info4"><b>Toxic:</b> {{plantDatadb.plant_info.toxicity}}</li>
+          <li class="plant-info5"><b>Plant Duration:</b> {{plantDatadb.plant_info.duration}}</li>
+          <li class="plant-info6"><b>Is Edible:</b> {{plantDatadb.plant_info.edible}}</li>
+          <li class="plant-info6"><b>Edible Parts:</b> {{plantDatadb.plant_info.edibleParts}}</li>
+          <li class="plant-info6"><b>Vegetable:</b> {{plantDatadb.plant_info.vegetable}}</li>
         </ul>
       </div>
 
-      <img id="plantpage" src="{{image_url}}" class="rounded float-right" alt"{{plant_name}} image">
-      <button type="button" class="btn2 btn-outline-secondary">Add to My Garden</button>
-      
-      <footer> 
-        <a href="https://www.homedepot.com/b/Outdoors-Garden-Center-Indoor-Plants-House-Plants/N-5yc1vZcew7?NCNI-5&searchRedirect=house%20plants&semanticToken=d00r20r01122000000_2021042120105677160610051745_us-central1-s8rx%20d00r20r01122000000%20%3E%20%20rid%3A%7B750ec13d718b702a0052724abbe9c7ef%7D%3Arid%20st%3A%7Bhouse%20plants%7D%3Ast%20ct%3A%7Bhouse%20plant%7D%3Act%20tgr%3A%7BNo%20stage%20info%7D%20nr%3A%7Bhouse%20plant%7D%3Anr%20qu%3A%7Bhouse%20plant%7D%3Aqu" link id ="link" >Buy Me Here!</a>
+      <img id="plantpage" src="{{plantDatadb.image_url}}" class="rounded float-right" alt"{{plant_name}} image">
+      {{#if isInGarden}}
+        <button id="favorite" type="button" class="btn2 btn-outline-secondary btn2-remove">Remove from My Garden</button>
+      {{else}}
+        <button id="favorite" type="button" class="btn2 btn-outline-secondary">Add to My Garden</button>
+      {{/if}}
+
+      <footer>
+        <a href="https://www.homedepot.com/b/Outdoors-Garden-Center-Indoor-Plants-House-Plants/N-5yc1vZcew7?NCNI-5&searchRedirect=house%20plants&semanticToken=d00r20r01122000000_2021042120105677160610051745_us-central1-s8rx%20d00r20r01122000000%20%3E%20%20rid%3A%7B750ec13d718b702a0052724abbe9c7ef%7D%3Arid%20st%3A%7Bhouse%20plants%7D%3Ast%20ct%3A%7Bhouse%20plant%7D%3Act%20tgr%3A%7BNo%20stage%20info%7D%20nr%3A%7Bhouse%20plant%7D%3Anr%20qu%3A%7Bhouse%20plant%7D%3Aqu"
+          link id="link">Buy Me Here!</a>
       </footer>
 
-<script src="./js/plantpage.js"></script>
+      <h1 id="search-page-title">{{searchedWord}} Results</h1> --}}
+
+<section class="row justify-content-center">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-5 mb-3">
+      <div class="plant-info-card card" style="width: 18rem;">
+        <h3 class="selected-plant">
+          {{plantDatadb.plant_name}}
+        </h3>
+          <ul class="list-group list-group-flush">
+            <li class="plant-info1"><b>Height:</b> {{plantDatadb.plant_info.height}}</li>
+            <li class="plant-info2"><b>Light Level:</b> {{plantDatadb.plant_info.light}} </li>
+            <li class="plant-info3"><b>Temperature:</b> {{plantDatadb.plant_info.temperature}}</li>
+            <li class="plant-info4"><b>Toxic:</b> {{plantDatadb.plant_info.toxicity}}</li>
+            <li class="plant-info5"><b>Plant Duration:</b> {{plantDatadb.plant_info.duration}}</li>
+            <li class="plant-info6"><b>Is Edible:</b> {{plantDatadb.plant_info.edible}}</li>
+            <li class="plant-info6"><b>Edible Parts:</b> {{plantDatadb.plant_info.edibleParts}}</li>
+            <li class="plant-info6"><b>Vegetable:</b> {{plantDatadb.plant_info.vegetable}}</li>
+          </ul>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-7 mb-3">
+      <img id="plantpage" src="{{plantDatadb.image_url}}" class="rounded float-right" alt"{{plant_name}} image"> 
+    </div>
+    {{#if loggedIn}}
+     {{#if isInGarden}}
+        <button id="favorite" type="button" class="btn2 btn-outline-secondary btn2-remove">Remove from My Garden</button>
+      {{else}}
+        <button id="favorite" type="button" class="btn2 btn-outline-secondary">Add to My Garden</button>
+      {{/if}}
+    {{/if}}
+</section>
+<footer>
+  <a href="https://www.homedepot.com/b/Outdoors-Garden-Center-Indoor-Plants-House-Plants/N-5yc1vZcew7?NCNI-5&searchRedirect=house%20plants&semanticToken=d00r20r01122000000_2021042120105677160610051745_us-central1-s8rx%20d00r20r01122000000%20%3E%20%20rid%3A%7B750ec13d718b702a0052724abbe9c7ef%7D%3Arid%20st%3A%7Bhouse%20plants%7D%3Ast%20ct%3A%7Bhouse%20plant%7D%3Act%20tgr%3A%7BNo%20stage%20info%7D%20nr%3A%7Bhouse%20plant%7D%3Anr%20qu%3A%7Bhouse%20plant%7D%3Aqu"
+    link id="link">Buy Me Here!</a>
+</footer>
+

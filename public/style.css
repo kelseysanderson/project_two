@@ -13,6 +13,20 @@ h1 {
     margin-left: 10%;
 }
 
+h4 {
+    color: #687E6A;
+    font-style: italic;
+    margin-left: 30%;
+}
+h4:hover {
+    font-style: normal;
+    text-shadow: 1px 1px 1px#536555;
+}
+h2 {
+    font-style: oblique;
+}
+
+
 .navbar{
     background-color: #DDD4C7;
     width: 102%;
@@ -27,18 +41,6 @@ h1 {
     text-align: center;
 }
 
-h4 {
-    color: #687E6A;
-    font-style: italic;
-    margin-left: 10%;
-}
-h4:hover {
-    font-style: normal;
-    text-shadow: 1px 1px 1px#536555;
-}
-h2 {
-    font-style: oblique;
-}
 
 #button {
     background-color: white;
@@ -54,6 +56,7 @@ h2 {
     box-shadow: 1px 1px 4px #536555;
 }
 
+
 .form-control:hover {
     box-shadow: 1px 1px 2px #687E6A;
     cursor: pointer;
@@ -68,12 +71,19 @@ h2 {
     padding:3px;
 }
 
-.home-page-card {
+p {
+    text-decoration: none;
+    font-size: 34px;
+    text-align: center;
+    color: #536555;
+   
+}
+/* .home-page-card {
     color: #2A322A;
     background-color: #E9F2E9;
     font-size: 40px;
     margin-top:1%;
-    border-radius: 25px 0 25px 0;
+    
     border: 1px solid #687E6A;
     padding: 5%;
     width: 500px;
@@ -93,7 +103,7 @@ h2 {
     font-size: 45%;
     padding-top: 5px;
     margin-top: 3px;
-}
+} */
 
 #search-page-title{
     margin-top: 3%;
@@ -116,6 +126,16 @@ h2 {
     border: 1px solid #687E6A;
     padding: 3%;
     height: 315px;
+}
+.card {              
+    color: #2A322A;
+    background-color: #E9F2E9;
+    font-size: 25px;
+    margin-left: 12%;
+    margin-top:5%;
+    border-radius: 25px 0 25px 0;
+    border: 1px solid #687E6A;
+    padding: 3%;
 }
 
 .card2 {
@@ -154,22 +174,29 @@ ul {
     list-style-type: none;
 }
 
+h3{
+    font-weight: bold;
+    font-size: 30px;
+}
+
 #plantpage {
     border-radius: 0 25px 0 25px;
     border: 1px solid #687E6A;
-    margin-right: 10%;
-    margin-top: -25%;
+    /* margin-right:10%; */
+    width: 100%;
+    height: 600px;;
+    object-fit: cover;
+    margin-top: 12%;
+    box-shadow: 10px 10px 20px #536555;
 }
-.card {              
+
+.plant-info-card {              
     color: #2A322A;
     background-color: #E9F2E9;
-    font-size: 25px;
-    margin-left: 12%;
-    margin-top:5%;
+    font-size: 20px;
     border-radius: 25px 0 25px 0;
     border: 1px solid #687E6A;
     padding: 3%;
-    /* height: 315px; */
 }
 
 .image {
@@ -188,7 +215,12 @@ footer {
     text-decoration-color: none;
     color:  #687E6A;
 }
+.col {
+    margin-left: 43%;
+    border: 3px solid #DDD4C7;
+    padding: 0%
 
+}
 .col-6 {
   
     border: 1px solid #2A322A;
@@ -208,7 +240,23 @@ footer {
     color: #2A322A;
     border: 1px solid #2A322A;
     border-radius: 5px 5px 5px 5px;
-    margin-left: 80%;
+    justify-self:center;
+    /* margin-top: 5%; */
+    margin-left: 83%;
+    padding:20px;
+    text-align: center;
+    font-weight:bold;
+}
+
+.btn2-remove {
+  background-color: #CE8F8F;
+  border: 1px solid #2A322A;
+  border-radius: 5px 5px 5px 5px;
+  justify-self:center;
+  margin-left: 83%;
+  padding:10px;
+  color:black;
+
 }
 
 .btn{
@@ -226,11 +274,22 @@ footer {
     box-shadow: 1px 1px 4px #536555;
 }
 
+.btn2-remove:hover {
+    cursor: pointer;
+    background-color: #5e3333;
+    box-shadow: 1px 1px 4px #536555;
+    color: #fde0e0;
+}
+
 .btn:hover{
     cursor: pointer;
     background-color: #2A322A;
     color: #A6C9A9;
     box-shadow: 1px 1px 4px #536555;
+}
+
+.btn:active {
+    background-color: #b49b99;
 }
 
 

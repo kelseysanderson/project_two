@@ -2,24 +2,10 @@ const { Plant } = require('../models');
 
 const plantData = [
   {
-    plant_name: 'Rose',
-    image_url: 'https://via.placeholder.com/200',
-    plant_info: 'Sometimes thorny'
-  },
-  {
-    plant_name: 'Tomato',
-    image_url: 'https://via.placeholder.com/200',
-    plant_info: 'Red'
-  },
-  {
-    plant_name: 'Sunflower',
-    image_url: 'https://via.placeholder.com/200',
-    plant_info: 'Yellow'
-  },
-  {
-    plant_name: 'Carrot',
-    image_url: 'https://via.placeholder.com/200',
-    plant_info: 'Orange'
+    id: '182597',
+    plant_name: 'Irish potato',
+    image_url: 'https://bs.plantnet.org/image/o/95a0197b33f8efe2ea7a0d25f84476415779a4b5',
+    plant_info: '{"height":"60cm","light":"High","toxicity":"unknown","duration":"perennial","edible":true,"edibleParts":"roots tubers","vegetable":true}'
   },
 ];
 

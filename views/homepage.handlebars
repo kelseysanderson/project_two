@@ -1,12 +1,15 @@
-<h1>Featured Plant:</h1>
-<section class="row justify-content-center">
-       <div class="col-12 col-sm-6 col-lg-4 mb-3">
-            <div class="home-page-card card" >
-                <img class="card-img-top home-page-img" src="{{plant.image_url}}" alt="Card image cap">
-                <div class="card-body">
-                <h5 id="home-card-title">{{plant.plant_name}}</h5>
-                <p>{{plant.plant_info}}</p>
-                </div>
-            </div> 
+
+<section>
+    <div class="container2">
+        <p>~ Featured Plant ~</p>
+        <p>{{plant.plant_name}}</p>
+        <a href="/plant/{{plant.id}}">
+        <div class="row row-cols-5">
+          
+          <div class="col"><img src="{{plant.image_url}}"class="img-fluid" ></div>
+          
         </div>
-</section>  
+      </div>
+      </a>
+
+</section>
