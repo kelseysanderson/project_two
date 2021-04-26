@@ -12,9 +12,8 @@
 
 - [GitHub Repo](https://github.com/kelseysanderson/project_two)
 
-- Hiroku:
+- [Hiroku](https://plant-project123.herokuapp.com/)
 
-- GitHub page:
 
 <p>&nbsp;</p>
 
